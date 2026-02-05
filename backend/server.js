@@ -21,6 +21,16 @@ app.use("/api/tools", toolRoutes);
 app.use("/api/click", clickRoutes);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () =>
-  console.log(`Server running on port ${PORT}`)
-);
+
+const server = async () => {
+  try{
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Error starting server:", error.message);
+  }
+}
+
+server();
